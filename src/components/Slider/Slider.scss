@@ -1,0 +1,53 @@
+.slider {
+  .container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+
+    .text-container {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+position: relative;
+
+
+      .text {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 300px;
+        position: absolute;
+        left: 160px;
+        text-align: center;
+
+
+      }
+      .btn {
+        position: absolute;
+        left: 252px;
+        top: 170px;
+        width: max-content;
+        background-color: yellow;
+        color: black;
+        padding: 17px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 900;
+
+      }
+    }
+
+    .image {
+      .object-cover {
+        margin-left: 300px;
+        margin-top: 50px;
+        width: 700px;
+        height: 600px;
+        object-fit: cover;
+
+      }
+    }
+  }
+}

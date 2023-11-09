@@ -1,0 +1,44 @@
+.trending {
+
+  margin: 60px 130px;
+  border-radius: 5px;
+
+  .container {
+    display: flex;
+    gap: 20px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    border-radius: 5px;
+
+
+
+
+    .destination {
+        position: relative;
+        transition: all 1s ease;
+
+
+
+      img {
+        height: 300px;
+        width: 300px;
+        border-radius: 12px;
+      }
+      .dest {
+
+        h3{
+            position: absolute;
+            bottom: 10px;
+            left: 25px;
+            color: white;
+            font-size: 25px;
+
+        }
+      }
+    }
+    .destination:hover{
+      padding: 20px;
+      }
+  }
+
+}

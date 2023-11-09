@@ -1,0 +1,31 @@
+.buyCoffee{
+    position: fixed;
+    bottom: 25px;
+    left: 1530px;
+
+    .container{
+position: relative;
+        img{
+            width: 150px;
+            height: 100px;
+            animation: example 3s infinite ease alternate;
+            // animation-duration: 4s;
+            opacity: 0.8;
+            position: absolute;
+            bottom: 10px;
+          left: -18px;
+
+        }
+        @keyframes example {
+
+           from{
+        transform: translateY(-10px);
+        }
+        to{
+        transform: translateY(10px);
+        }
+
+
+        }
+    }
+}

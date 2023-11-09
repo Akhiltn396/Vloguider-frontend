@@ -1,0 +1,19 @@
+
+body {
+
+  margin: 0;
+  font-family: 'Fuggles', cursive;
+  font-family: 'Lato', sans-serif;
+  font-family: 'Play', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Saira', sans-serif;
+  font-family: 'Urbanist', sans-serif;
+  font-family: 'Young Serif', serif;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
