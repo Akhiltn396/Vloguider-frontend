@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { imageData } from "../../imageData";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from "react-responsive-carousel";
+
 import "./Slider.scss"
 
 const Slider = () => {
