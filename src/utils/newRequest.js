@@ -2,7 +2,7 @@ import axios from "axios";
 
 const newRequest = axios.create({
 
-baseURL:`http://localhost:3001/api/pins`,
+baseURL:`https://vloguider-backend.onrender.com/api/pins`,
 withCredentials:true
 })
 

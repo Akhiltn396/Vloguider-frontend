@@ -12,22 +12,20 @@ import { useDispatch, useSelector } from "react-redux";
 import upload from "../../components/utils/upload";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { search } from "../../redux/searchSlice";
-import Location from "../../img/current-location-icon.png"
-import {  useLocation } from "react-router-dom";
+import Location from "../../img/current-location-icon.png";
+import { useLocation } from "react-router-dom";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
-
-
+import axios from "axios";
 
 const Feature = () => {
   const dispatch = useDispatch();
-
 
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const searched = useSelector((state) => state.search);
   const place = searched.destination;
   const [currentlat, setLat] = useState();
   const [currentlong, setLong] = useState();
-  console.log(currentlat,currentlong);
+  console.log(currentlat, currentlong);
   const [currentaddress, setAddress] = useState();
 
   const [viewPort, setViewport] = useState({
@@ -35,7 +33,6 @@ const Feature = () => {
     longitude: searched.longitude ? searched.longitude : currentlong,
     zoom: searched.zoom || 4,
   });
-
 
   const latitude = viewPort.latitude;
   const longitude = viewPort.longitude;
@@ -142,7 +139,6 @@ const Feature = () => {
       },
     };
 
-    console.log(newPin);
 
     mutation.mutate(newPin);
 
@@ -150,12 +146,16 @@ const Feature = () => {
     setPhotos("");
   };
   const mutationDelete = useMutation((id) => {
-    return newRequest.delete(`/${id}`);
+
+    // return newRequest.delete(`/${id}`);
+
+    return axios.delete(
+      `https://vloguider-backend.onrender.com/api/pins/${id}`
+    );
+
   });
   const handleDelete = (id) => {
     mutationDelete.mutate(id);
-    window.location.reload();
-
 
   };
 
@@ -179,16 +179,12 @@ const Feature = () => {
     e.preventDefault();
     // setViewport({ ...viewPort, latitude: currentlat, longitude: currentlong });
 
-    dispatch(search({currentaddress,currentlat,currentlong}));
+    dispatch(search({ currentaddress, currentlat, currentlong }));
     // // dispatch(remove())
     window.location.reload();
   };
   return (
-
-
     <div className="feature" style={{ height: "100vh", width: "100vw" }}>
-
-
       <SideBar latitude={latitude} longitude={longitude} />
       <Map
         mapboxAccessToken="pk.eyJ1IjoiYWtoaWwxMjM4OTAiLCJhIjoiY2xuZGI2ZWdyMDJ5OTJtcmxqbXM0MGc1eiJ9.cfe6FlxCcLvagq0Egp0Vmw"
@@ -199,68 +195,68 @@ const Feature = () => {
         onContextMenu={handleAddClick}
         mapStyle="mapbox://styles/mapbox/streets-v9"
       >
-        {isLoading
-          ? <LoadingSpinner/>
-          : data?.map((d) => (
-              <>
-                <Marker
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          data?.map((d) => (
+            <>
+              <Marker
+                longitude={d.location.coordinates[0]}
+                latitude={d.location.coordinates[1]}
+                offset={[0 * viewPort.zoom, -2 * viewPort.zoom]}
+                style={{}}
+              >
+                <RoomIcon
+                  style={{
+                    fontSize: viewPort.zoom * 6,
+                    color: currentUser?.isAdmin ? "red" : "slateblue",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => handleMarkerClick(d._id, d.lat, d.long)}
+                />
+              </Marker>
+              {d._id === currentPlaceId && (
+                <Popup
                   longitude={d.location.coordinates[0]}
                   latitude={d.location.coordinates[1]}
-                  offset={[0 * viewPort.zoom, -2 * viewPort.zoom]}
-                  style={{}}
+                  anchor="left"
+                  closeOnClick={false}
+                  onClose={() => setCurrentPlaceId(null)}
+                  // offset={[30, -1650]}
+                  maxWidth={"230px"}
+                  style={{
+                    height: "fit-content",
+                    marginLeft: "20px",
+                  }}
+                  className="string"
                 >
-                  <RoomIcon
-                    style={{
-                      fontSize: viewPort.zoom * 6,
-                      color: currentUser?.isAdmin
-                        ? "red"
-                        : "slateblue",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => handleMarkerClick(d._id, d.lat, d.long)}
-                  />
-                </Marker>
-                {d._id === currentPlaceId && (
-                  <Popup
-                    longitude={d.location.coordinates[0]}
-                    latitude={d.location.coordinates[1]}
-                    anchor="left"
-                    closeOnClick={false}
-                    onClose={() => setCurrentPlaceId(null)}
-                    // offset={[30, -1650]}
-                    maxWidth={"230px"}
-                    style={{
-                      height: "fit-content",
-                      marginLeft: "20px",
-                    }}
-                    className="string"
-                  >
-                    <div className="card">
-                      {currentUser?.isAdmin && (
-                        <DeleteIcon
-                          className="delete"
-                          onClick={() => handleDelete(d._id)}
-                        />
-                      )}
-                      <label>Place</label>
-                      <h4 className="place">{d.title}</h4>
-                      <label>Review</label>
-                      <p className="desc">{d.desc}</p>
+                  <div className="card">
+                    {currentUser?.isAdmin && (
+                      <DeleteIcon
+                        className="delete"
+                        onClick={() => handleDelete(d._id)}
+                      />
+                    )}
+                    <label>Place</label>
+                    <h4 className="place">{d.title}</h4>
+                    <label>Review</label>
+                    <p className="desc">{d.desc}</p>
 
-                      <label>Information</label>
-                      <span className="username">
-                        Created by <b>{d.username}</b>
-                      </span>
-                      <span className="date">{format(d.createdAt)}</span>
-                      <label style={{ marginTop: "10px" }}>Rating</label>
-                      <div>
-                        {Array(d.rating).fill(<StarIcon className="star" />)}
-                      </div>
+                    <label>Information</label>
+                    <span className="username">
+                      Created by <b>{d.username}</b>
+                    </span>
+                    <span className="date">{format(d.createdAt)}</span>
+                    <label style={{ marginTop: "10px" }}>Rating</label>
+                    <div>
+                      {Array(d.rating).fill(<StarIcon className="star" />)}
                     </div>
-                  </Popup>
-                )}
-              </>
-            ))}
+                  </div>
+                </Popup>
+              )}
+            </>
+          ))
+        )}
 
         {newPlace &&
           (!currentUser?.isAdmin ? (
@@ -384,13 +380,9 @@ const Feature = () => {
           ))}
       </Map>
       <div className="current" onClick={handleCLick}>
-
-       <img src={Location} alt="" />
+        <img src={Location} alt="" />
       </div>
-
     </div>
-
-
   );
 };
 

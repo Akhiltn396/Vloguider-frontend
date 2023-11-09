@@ -54,7 +54,7 @@ const Register = () => {
       const { username, email, phone, state, password } = credentials;
 
       const res = await axios
-        .post("http://localhost:3001/api/auth/register", {
+        .post("https://vloguider-backend.onrender.com/api/auth/register", {
           username,
           email,
           phone,

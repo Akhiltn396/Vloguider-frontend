@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import useFetch from "../useFetch";
 import Image from "../Image/Image";
+import newRequest from "../../utils/newRequest";
 
 
 const SideBar = ({ latitude, longitude }) => {
@@ -15,7 +16,7 @@ const SideBar = ({ latitude, longitude }) => {
   let componentMounted = true;
   const [weather, setWeather] = useState([]);
   const { datas, loading, error } = useFetch(
-    `http://localhost:3001/api/pins?title=${destination}`
+    `https://vloguider-backend.onrender.com/api/pins?title=${destination}`
   );
 
   const dispatch = useDispatch();
@@ -23,9 +24,9 @@ const SideBar = ({ latitude, longitude }) => {
   const { isLoading, errors, data } = useQuery({
     queryKey: ["getDetails"],
     queryFn: () =>
-      axios
+      newRequest
         .get(
-          `http://localhost:3001/api/pins/destData?latitude=${latitude}&longitude=${longitude}`
+          `/destData?latitude=${latitude}&longitude=${longitude}`
         )
         .then((res) => {
           return res.data;
@@ -35,6 +36,7 @@ const SideBar = ({ latitude, longitude }) => {
         }),
   });
   const photos = data?.[0]?.photos;
+  console.log(datas)
 
 
 
