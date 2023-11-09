@@ -17,10 +17,12 @@ import { useLocation } from "react-router-dom";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import axios from "axios";
 
+
 const Feature = () => {
+
   const dispatch = useDispatch();
 
-  const currentUser = JSON.parse(localStorage.getItem("user")) || null;
+  const currentUser = JSON.parse(localStorage.getItem("user"))
   const searched = useSelector((state) => state.search);
   const place = searched.destination;
   const [currentlat, setLat] = useState();

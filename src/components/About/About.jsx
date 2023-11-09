@@ -5,7 +5,8 @@ import { useSelector } from "react-redux";
 
 const About = () => {
   const { destination } = useSelector((state) => state.search);
-  const currentUser = JSON.parse(localStorage.getItem("user"));
+  console.log(localStorage.getItem("user").length)
+  const currentUser = localStorage.getItem("user").length <= 4? null : JSON.parse(localStorage.getItem("user"))
 
   const navigate = useNavigate();
 
