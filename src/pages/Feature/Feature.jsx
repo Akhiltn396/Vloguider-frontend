@@ -20,7 +20,7 @@ import axios from "axios";
 const Feature = () => {
   const dispatch = useDispatch();
 
-  const currentUser = JSON.parse(localStorage.getItem("user"));
+  const currentUser = JSON.parse(localStorage.getItem("user")) || null;
   const searched = useSelector((state) => state.search);
   const place = searched.destination;
   const [currentlat, setLat] = useState();

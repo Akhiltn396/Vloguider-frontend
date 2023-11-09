@@ -9,7 +9,7 @@ import { useLocation } from "react-router-dom";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 const Home = () => {
-  const location = useLocation();
+
   return (
     <div className="home">
       <div className="container">
