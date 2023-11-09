@@ -11,7 +11,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   const currentUser =
-    localStorage.getItem("user") === undefined
+    localStorage.getItem("user") === 'undefined'
       ? null
       : JSON.parse(localStorage.getItem("user"));
   const handleLogin = () => {
